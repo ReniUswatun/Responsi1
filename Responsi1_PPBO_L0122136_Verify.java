@@ -3,18 +3,39 @@ import java.util.regex.Pattern;
 
 public class Responsi1_PPBO_L0122136_Verify {
 
-    public static int checkInt(Scanner scanner) throws IllegalArgumentException {
-        String inputTemp = scanner.nextLine();
-        int inputInt = -1;
-        try {
-            inputInt = Integer.parseInt(inputTemp);
-            if (inputInt < 0) {
-                throw new IllegalArgumentException("Input harus merupakan bilangan bulat positif.");
+    public static int checkInt(Scanner scanner) {
+        boolean isValidInput = false;
+        int result = -1;
+        while (!isValidInput) {
+            try {
+                String input = scanner.nextLine();
+                result = Integer.parseInt(input);
+
+                if (result < 0) {
+                    System.out.println("Error: Input tidak boleh negatif!");
+                    continue;
+                }
+
+                isValidInput = true;
+            } catch (Exception e) {
+                System.out.println("Error: Input yang Anda berikan tidak valid!");
             }
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Input tidak valid. Harus berupa bilangan bulat.");
         }
-        return inputInt;
+        return result;
+
+        // String inputTemp = scanner.nextLine();
+        // int inputInt = -1;
+        // try {
+        // inputInt = Integer.parseInt(inputTemp);
+        // if (inputInt < 0) {
+        // throw new IllegalArgumentException("Input harus merupakan bilangan bulat
+        // positif.");
+        // }
+        // } catch (NumberFormatException e) {
+        // throw new IllegalArgumentException("Input tidak valid. Harus berupa bilangan
+        // bulat.");
+        // }
+        // return inputInt;
     }
     // class ini digunakan untuk mengecek inputan user agar sesuai yang diiinginkan
     // nantinya kelas ini akan melempar exception
