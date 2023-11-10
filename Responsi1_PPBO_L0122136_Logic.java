@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
-public class Logic {
+public class Responsi1_PPBO_L0122136_Logic {
     // merupakan kelas untuk mengatur logika didalam codingan ini
     public static void makeOrOpenFolder() throws IOException {
         File data = new File("My-Activity");
@@ -27,45 +27,45 @@ public class Logic {
         }
     }
 
-    public static void readAllAgendaFolder(List<Object_Task> taskList, Scanner scanner) throws IOException, Exception {
+    public static void readAllAgendaFolder(List<Responsi1_PPBO_L0122136_Object_Task> taskList, Scanner scanner)
+            throws IOException, Exception {
         Path directory = Paths.get("My-Activity");
         DirectoryStream<Path> directoryStream = Files.newDirectoryStream(directory, "*.txt");
         for (Path filePath : directoryStream) {
-            try {
-                if (Files.size(filePath) > 0) {
-                    List<String> lines = Files.readAllLines(filePath);
-                    for (String line : lines) {
-                        if (!line.trim().isEmpty()) { // Tambahkan pengecekan apakah baris kosong
-                            String[] fieldTask = line.split("\\|del\\|");
-                            Object_Task task = null;
-                            switch (filePath.getFileName().toString()) {
-                                case "assignment.txt":
-                                    task = new AssignmentTask(fieldTask[0], fieldTask[1], fieldTask[2]);
-                                    break;
-                                case "finish_done.txt":
-                                    task = new DoneTask(fieldTask[0], fieldTask[1], fieldTask[2], fieldTask[3]);
-                                    break;
-                                case "finish_late.txt":
-                                    task = new DoneLateTask(fieldTask[0], fieldTask[1], fieldTask[2], fieldTask[3]);
-                                    break;
-                            }
-                            if (task != null) {
-                                taskList.add(task);
-                            }
+
+            if (Files.size(filePath) > 0) {
+                List<String> lines = Files.readAllLines(filePath);
+                for (String line : lines) {
+                    if (!line.trim().isEmpty()) { // Tambahkan pengecekan apakah baris kosong
+                        String[] fieldTask = line.split("\\|del\\|");
+                        Responsi1_PPBO_L0122136_Object_Task task = null;
+                        switch (filePath.getFileName().toString()) {
+                            case "assignment.txt":
+                                task = new AssignmentTask(fieldTask[0], fieldTask[1], fieldTask[2]);
+                                break;
+                            case "finish_done.txt":
+                                task = new DoneTask(fieldTask[0], fieldTask[1], fieldTask[2], fieldTask[3]);
+                                break;
+                            case "finish_late.txt":
+                                task = new DoneLateTask(fieldTask[0], fieldTask[1], fieldTask[2], fieldTask[3]);
+                                break;
+                        }
+                        if (task != null) {
+                            taskList.add(task);
                         }
                     }
                 }
-            } catch (Exception e) {
-                throw new Exception("Error processing file: " + filePath + ": " + e.getMessage());
             }
+
         }
     }
 
-    public static void readAllTasksByType(List<Object_Task> taskList, Class<? extends Object_Task> taskType) {
+    public static void readAllTasksByType(List<Responsi1_PPBO_L0122136_Object_Task> taskList,
+            Class<? extends Responsi1_PPBO_L0122136_Object_Task> taskType) {
         boolean taskfound = false;
         if (taskList != null && !taskList.isEmpty()) {
             int index = 0;
-            for (Object_Task task : taskList) {
+            for (Responsi1_PPBO_L0122136_Object_Task task : taskList) {
                 if (taskType.isInstance(task)) {
                     index++;
                     System.out.printf("|  %-3s  %s", index, task.toString());
@@ -79,16 +79,16 @@ public class Logic {
         }
     }
 
-    public static void addAgendaToListAssignment(List<Object_Task> taskList, Path filePath,
+    public static void addAgendaToListAssignment(List<Responsi1_PPBO_L0122136_Object_Task> taskList, Path filePath,
             Scanner scanner) throws IOException {
         boolean succesMakeTask = false;
         while (!succesMakeTask) {
             System.out.println("Masukkan Nama Tugas tidak lebih dari 15 kata");
-            String nameTask = Verify.checkNameTask(scanner);
+            String nameTask = Responsi1_PPBO_L0122136_Verify.checkNameTask(scanner);
             System.out.println("Masukkan tanggal tugas diberikan");
-            String dateOutTask = Verify.checkDate(scanner);
+            String dateOutTask = Responsi1_PPBO_L0122136_Verify.checkDate(scanner);
             System.out.println("Masukkan tanggal tugas dikumpulkan");
-            String dueDateTask = Verify.checkDate(scanner);
+            String dueDateTask = Responsi1_PPBO_L0122136_Verify.checkDate(scanner);
             AssignmentTask assignmentTask = new AssignmentTask(nameTask, dateOutTask, dueDateTask);
             taskList.add(assignmentTask);
             addTextToFile(nameTask, dateOutTask, dueDateTask, filePath, scanner);
@@ -104,29 +104,28 @@ public class Logic {
         System.out.println("Task telah masuk ke data base");
     }
 
-    public static void writeListToFile(List<Object_Task> taskList, Class<? extends Object_Task> taskType, Path filePath)
+    public static void writeListToFile(List<Responsi1_PPBO_L0122136_Object_Task> taskList,
+            Class<? extends Responsi1_PPBO_L0122136_Object_Task> taskType, Path filePath)
             throws IOException {
-        // Iterate through the taskList and write each task to the file
-        for (Object_Task task : taskList) {
-            // Check if the task is an instance of the specified taskType
+        for (Responsi1_PPBO_L0122136_Object_Task task : taskList) {
             if (taskType.isInstance(task)) {
-                // Write the task to the file
                 Files.write(filePath, task.toFileString().getBytes(), StandardOpenOption.CREATE,
                         StandardOpenOption.TRUNCATE_EXISTING);
             }
         }
     }
 
-    public static void deleteAndUpdateAssignment(List<Object_Task> taskList, Scanner scanner) throws IOException {
+    public static void deleteAndUpdateAssignment(List<Responsi1_PPBO_L0122136_Object_Task> taskList, Scanner scanner)
+            throws IOException {
         boolean trueDelAndUp = false;
         while (!trueDelAndUp) {
             displayAssignmentIndexes(taskList);
             System.out.println("Lihat List Diatas Masukkan Indeks Sesuai Indeks Diatas");
             System.out.println("Jika Tidak Ada Jangan Masukkan Enter\nMasukkan Angka Apa Saja");
             System.out.print("Index tugas yang sudah diselesaikan\n=> ");
-            int indexDelete = Verify.checkInt(scanner);
+            int indexDelete = Responsi1_PPBO_L0122136_Verify.checkInt(scanner);
             if (indexDelete >= 0 && indexDelete < taskList.size()) {
-                Object_Task task = taskList.get(indexDelete);
+                Responsi1_PPBO_L0122136_Object_Task task = taskList.get(indexDelete);
                 if (task instanceof AssignmentTask) {
                     taskList.remove(task);
                     if (!taskList.isEmpty()) {
@@ -155,16 +154,16 @@ public class Logic {
                 }
             } else {
                 System.out.println("Data Assignment tidak ada Kembali Ke main Menu");
-                Utility.enterToContinue(scanner);
+                Responsi1_PPBO_L0122136_Utility.enterToContinue(scanner);
                 trueDelAndUp = true;
             }
         }
     }
 
-    public static void displayAssignmentIndexes(List<Object_Task> taskList) {
+    public static void displayAssignmentIndexes(List<Responsi1_PPBO_L0122136_Object_Task> taskList) {
         System.out.println("Daftar Index AssignmentTask dalam taskList:");
         for (int i = 0; i < taskList.size(); i++) {
-            Object_Task task = taskList.get(i);
+            Responsi1_PPBO_L0122136_Object_Task task = taskList.get(i);
             if (task instanceof AssignmentTask) {
                 System.out.println("Index: " + i + ", Task: " + task);
             }

@@ -1,12 +1,12 @@
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-public class Object_Task {
+public class Responsi1_PPBO_L0122136_Object_Task {
     private String NameOfTask;
     private LocalDate DateOut;
     private LocalDate DueDate;
 
-    public Object_Task(String NameOfTask, String DateOut, String DueDate) {
+    public Responsi1_PPBO_L0122136_Object_Task(String NameOfTask, String DateOut, String DueDate) {
         this.NameOfTask = NameOfTask;
         this.DateOut = LocalDate.parse(DateOut); // Konversi String ke LocalDate
         this.DueDate = LocalDate.parse(DueDate); // Konversi String ke LocalDate
@@ -34,7 +34,7 @@ public class Object_Task {
     }
 }
 
-class AssignmentTask extends Object_Task {
+class AssignmentTask extends Responsi1_PPBO_L0122136_Object_Task {
     public AssignmentTask(String nameOfTask, String dateOut, String dueDate) {
         super(nameOfTask, dateOut, dueDate);
     }
@@ -68,7 +68,7 @@ class AssignmentTask extends Object_Task {
     }
 }
 
-class DoneTask extends Object_Task {
+class DoneTask extends Responsi1_PPBO_L0122136_Object_Task {
     private LocalDate dateDone;
 
     public DoneTask(String nameOfTask, String dateOut, String dueDate, String dateDone) {
@@ -96,7 +96,7 @@ class DoneTask extends Object_Task {
     }
 }
 
-class DoneLateTask extends Object_Task {
+class DoneLateTask extends Responsi1_PPBO_L0122136_Object_Task {
     private LocalDate dateDone;
 
     public DoneLateTask(String nameOfTask, String dateOut, String dueDate, String dateDone) {

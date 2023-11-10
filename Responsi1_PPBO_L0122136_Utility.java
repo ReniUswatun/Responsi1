@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Utility {
+public class Responsi1_PPBO_L0122136_Utility {
     // class ini nantinya akan banyak digunakan untuk memanggil secara berkala
     // baik itu dalam UI
     // error

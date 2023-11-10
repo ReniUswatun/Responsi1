@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-public class Verify {
+public class Responsi1_PPBO_L0122136_Verify {
 
     public static int checkInt(Scanner scanner) throws IllegalArgumentException {
         String inputTemp = scanner.nextLine();
@@ -29,7 +29,7 @@ public class Verify {
                 validInput = true;
             } else {
                 System.out.println("Nama Agenda diantara 0-15 kata.");
-                Utility.enterToContinue(scanner);
+                Responsi1_PPBO_L0122136_Utility.enterToContinue(scanner);
             }
         }
         return agenda;
@@ -45,7 +45,7 @@ public class Verify {
                 inputValid = true;
             else {
                 System.out.println("Tanggal tidak valid, harap masukkan sesuai format");
-                Utility.enterToContinue(scanner);
+                Responsi1_PPBO_L0122136_Utility.enterToContinue(scanner);
             }
         }
         return inputValidDate;
